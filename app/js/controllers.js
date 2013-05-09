@@ -2,27 +2,28 @@
 
 /* Controllers */
 
-<<<<<<< HEAD
-function TeamCtrl($scope, Players) {
-    $scope.players = Players.query();
-    $scope.orderProp = 'name';
-    $scope.foo = 'bar';
-}
-
-function PlayerCtrl($scope, $routeParams, Players) {
-    $scope.player = Players.get({player_id: $routeParams.player_id}, function() {
-       // $scope.mainImageUrl = phone.images[0];
-    });
-    console.log($routeParams);
-=======
-function ListCtrl($scope, Players) {
+function ListCtrl($scope, Players, Scoreboard) {
     // Start with a list of all players
     var allPlayers = Players.query(getTeams);
+    var rawScoreboard = Scoreboard.query(getGames);
+    // $scope.scoreboard = rawScoreboard;
+    $scope.scoreboard = {};
 
-    // Get just the one we want
+    function getGames() {
+
+    	angular.forEach(rawScoreboard, function(item, key) {
+    		if ( !!item.games ) {
+    			$scope.scoreboard.date  = item.games.date;
+    			$scope.scoreboard.games = item.games.game;
+    			console.log(item.games.game);
+    		}
+    		
+    	});
+    }
+
 	function getTeams() {
 		var teams = $scope.teams = [];
-
+		
 		// filter
 		angular.forEach(allPlayers, function(item, key) {
 		  if ( teams.indexOf(item.team_abbrev) > -1) {
@@ -75,5 +76,5 @@ function TeamCtrl($scope, $routeParams, Players) {
 		});
 	}
 
->>>>>>> 049528f12c824340b4cd415bc892e215be42f192
+
 }
