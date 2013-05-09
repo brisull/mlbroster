@@ -1,0 +1,8 @@
+<p>This is the team view.</p>
+<p>
+  Team = {{team}}
+</p>
+        <ul>
+            <li ng-repeat="player in players"><a ng-href="#/player/{{player.player_id}}">{{player.name_display_last_first}}</a>, {{player.team_abbrev}}</li>
+
+        </ul>
