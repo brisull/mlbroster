@@ -5,7 +5,7 @@
 function ListCtrl($scope, Players, Scoreboard) {
     // Start with a list of all players
     var allPlayers = Players.query(getTeams);
-    var rawScoreboard = Scoreboard.query(getGames);
+    var rawScoreboard = Scoreboard.get(getGames);
     // $scope.scoreboard = rawScoreboard;
     $scope.scoreboard = {};
 
@@ -15,7 +15,7 @@ function ListCtrl($scope, Players, Scoreboard) {
     		if ( !!item.games ) {
     			$scope.scoreboard.date  = item.games.date;
     			$scope.scoreboard.games = item.games.game;
-    			console.log(item.games.game);
+    			// console.log(item.games.game);
     		}
     		
     	});
@@ -47,7 +47,7 @@ function PlayerCtrl($scope, $routeParams, Players) {
 
 		// filter
 		angular.forEach(allPlayers, function(item, key) {
-			console.log(item.player_id);
+			// console.log(item.player_id);
 		  if ($routeParams.player_id.length && $routeParams.player_id == item.player_id ) { 
 		  	$scope.player = item;
 		  	return; 
