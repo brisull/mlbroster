@@ -5,7 +5,7 @@
 function ListCtrl($scope, Players, Scoreboard) {
     // Start with a list of all players
     var allPlayers = Players.query(getTeams);
-    var rawScoreboard = Scoreboard.query(getGames);
+    var rawScoreboard = Scoreboard.get(getGames);
     // $scope.scoreboard = rawScoreboard;
     $scope.scoreboard = {};
     $scope.teams = [];
@@ -14,10 +14,11 @@ function ListCtrl($scope, Players, Scoreboard) {
     	angular.forEach(rawScoreboard, function(item, key) {
     		if ( !!item.games ) {
     			$scope.scoreboard.date  = item.games.date;
+
                 angular.forEach(item.games.game, function(game) {
                     $scope.scoreboard.games.push(game);
                 });
-    			// console.log(item.games.game);
+
     		}
     	});
     }
