@@ -8,30 +8,36 @@ function ListCtrl($scope, Players, Scoreboard) {
     var rawScoreboard = Scoreboard.query(getGames);
     // $scope.scoreboard = rawScoreboard;
     $scope.scoreboard = {};
-
+    $scope.teams = [];
     function getGames() {
-
+        $scope.scoreboard.games = [];
     	angular.forEach(rawScoreboard, function(item, key) {
     		if ( !!item.games ) {
     			$scope.scoreboard.date  = item.games.date;
-    			$scope.scoreboard.games = item.games.game;
-    			console.log(item.games.game);
+                angular.forEach(item.games.game, function(game) {
+                    $scope.scoreboard.games.push(game);
+                });
+    			// console.log(item.games.game);
     		}
-    		
     	});
     }
 
 	function getTeams() {
-		var teams = $scope.teams = [];
+		var teams = [];
 		
 		// filter
 		angular.forEach(allPlayers, function(item, key) {
 		  if ( teams.indexOf(item.team_abbrev) > -1) {
-			return;
+			    return;
 			}
-			teams.push(item.team_abbrev);
+			$scope.teams.push(item);
 		});
 	}
+
+    function getGame(team_abbrev) {
+
+    }
+
     $scope.orderProp = 'team_abbrev';
     $scope.foo = 'bar';
 }
@@ -47,7 +53,7 @@ function PlayerCtrl($scope, $routeParams, Players) {
 
 		// filter
 		angular.forEach(allPlayers, function(item, key) {
-			console.log(item.player_id);
+			// console.log(item.player_id);
 		  if ($routeParams.player_id.length && $routeParams.player_id == item.player_id ) { 
 		  	$scope.player = item;
 		  	return; 
